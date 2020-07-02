@@ -53,8 +53,8 @@ function getGihubRepositories(username) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('calling GitHub API...');
-            // resolve(['repo1', 'repo2', 'repo3']);
-            reject(new Error('something rejected'));
+            resolve(['repo1', 'repo2', 'repo3']);
+            // reject(new Error('something rejected'));
         }, 2000);
     });
 }
