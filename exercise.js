@@ -18,7 +18,7 @@ async function emailCustomers() {
         if (customer.isGold) {
             const movies = await getTopMovies();
             console.log("Movies", movies);
-            const emailSent = await sendEmail(customer.email, movies);
+            await sendEmail(customer.email, movies);
             console.log("Email sent...");
         }
     }
