@@ -8,5 +8,8 @@
     "start": "nodemon index.js"
   },
   "author": "keshava pranath",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.9.22"
+  }
 }

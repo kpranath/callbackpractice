@@ -1,69 +1,39 @@
-// console.log('Before');
-// getUser(1, getRepositories);
-// console.log('After');
+const mongoose = require('mongoose');
 
-// console.log('Before');
-// getUser(1)
-//     .then(user => getGihubRepositories(user.githubUsename))
-//     .then(repos => getCommits(repos[0]))
-//     .then(commits => console.log('commits : ', commits))
-//     .catch(err => console.log('Error: ', err.message));
-// console.log('After');
+mongoose.connect('mongodb://localhost/playground')
+    .then(() => console.log('Connected to database...'))
+    .catch(err => console.error('Could not connect to database', err));
 
+const courseSchema = new mongoose.Schema({
+    name: String,
+    author: String,
+    tags: [String],
+    date: { type: Date, default: Date.now },
+    isPublished: Boolean
+});
 
-console.log('Before');
-async function displaycommits() {
-    try {
-        const user = await getUser(1);
-        const repos = await getGihubRepositories(user.githubUsename);
-        const commits = await getCommits(repos[0]);
-        console.log(commits);
-    }
-    catch (err) {
-        console.log('Error', err.message);
-    }
-}
-displaycommits();
-console.log('After');
+const Course = mongoose.model('Course', courseSchema);
 
-
-
-// function getRepositories(user) {
-//     getGihubRepositories(user.githubUsename, getrepoCommits);
-// }
-
-// function getrepoCommits(repos) {
-//     getCommits(repos[0], displaycommits);
-// }
-
-// function displaycommits(commits) {
-//     console.log(commits);
-// }
-
-function getUser(id) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('Reading a user from database');
-            resolve({ id: id, githubUsename: 'kpranath' });
-        }, 2000);
+async function createCourse() {
+    const course = new Course({
+        name: 'Angular.Js course',
+        author: 'Mosh',
+        tags: ['Angular', 'frontend', 'javascript'],
+        isPublished: true
     });
+
+    const result = await course.save();
+    console.log(result);
 }
 
-function getGihubRepositories(username) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('calling GitHub API...');
-            resolve(['repo1', 'repo2', 'repo3']);
-            // reject(new Error('something rejected'));
-        }, 2000);
-    });
+async function getCourse() {
+    const courses = await Course
+        .find({ author: 'Mosh' })
+        .limit(10)
+        .sort({ name: 1 })
+        .select({ name: 1, tags: 1 });
+    console.log(courses);
 }
 
-function getCommits(repo) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('calling GitHub API for commits...');
-            resolve(['commit1', 'commit2', 'commit3']);
-        }, 2000);
-    });
-}
+getCourse();
+// createCourse();
