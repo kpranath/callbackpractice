@@ -29,6 +29,9 @@ async function createCourse() {
 async function getCourse() {
     const courses = await Course
         .find({ author: 'Mosh' })
+        // .find({price: {$gt: 10}})  //gt is operator. So key is operator and is specified with $. other comparisions (eq,ne,gt,gte,lt,lte,in,nin)
+        // .find({price: {$gt: 10, $lt:20}}) //for rows in range
+        .find({ price: { $in: [10, 15, 20] } })
         .limit(10)
         .sort({ name: 1 })
         .select({ name: 1, tags: 1 });
