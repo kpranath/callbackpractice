@@ -65,6 +65,16 @@ async function getCourse() {
     //     .sort({ name: 1 })
     //     .count();
 
+    //for pagination
+    // const pageNumber = 2;
+    // const pageSize = 10;
+    // const courses = await Course
+    //     .find({ author: 'Mosh' })
+    //     .skip((pageNumer-1)*pageSize)
+    //     .limit(pageSize)
+    //     .sort({ name: 1 })
+    //     .count();
+
 
     console.log(courses);
 }
