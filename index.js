@@ -79,5 +79,33 @@ async function getCourse() {
     console.log(courses);
 }
 
-getCourse();
+async function updateCourse(id) {
+    //approach 1
+    // const course = await Course.findById(id);
+    // if (!course) return;
+
+    // course.isPublished = true;
+    // course.author = 'New Author';
+
+    // const result = await course.save();
+    // console.log(result);
+
+    //approach-2
+    const result = await Course.update({ _id: id }, {
+        $set: {
+            author: 'Keshava Pranath',
+            isPublished: false
+        }
+    });
+    console.log(result);
+}
+
+async function removeCourse(id) {
+    const result = await Course.deleteOne({ _id: id });
+    console.log(result);
+}
+
+removeCourse('5f07302ef23cb93f1c42a8d1');
+// updateCourse('5f07302ef23cb93f1c42a8d1');
+// getCourse();
 // createCourse();
