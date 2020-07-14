@@ -37,7 +37,9 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         required: function () { return this.isPublished; },
         min: 10,
-        max: 200
+        max: 200,
+        get: v => Math.round(v),//to round of the value while retriving data from db;
+        set: v => Math.round(v)//to round of the value while sending to database;
     }
 });
 
