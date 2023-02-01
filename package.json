@@ -10,6 +10,6 @@
   "author": "keshava pranath",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.9.22"
+    "mongoose": "^5.13.15"
   }
 }
